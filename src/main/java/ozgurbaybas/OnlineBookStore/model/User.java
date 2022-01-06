@@ -1,11 +1,13 @@
 package ozgurbaybas.OnlineBookStore.model;
 
 
+import lombok.Data;
 import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Data
 @Entity
 @Table(name = "users")
 public class User {
@@ -26,6 +28,8 @@ public class User {
     @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
 
-    // Roleler oluşturulacak.
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
 
 }
