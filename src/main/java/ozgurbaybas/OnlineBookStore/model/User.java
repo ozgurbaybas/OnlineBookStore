@@ -26,5 +26,6 @@ public class User {
     @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
 
-    // role
+    // Roleler oluşturulacak.
+
 }
