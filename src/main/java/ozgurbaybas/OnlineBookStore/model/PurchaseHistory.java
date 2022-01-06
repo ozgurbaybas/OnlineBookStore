@@ -22,7 +22,7 @@ public class PurchaseHistory {
     private Long bookId;
 
     @Column(name = "price", nullable = false)
-    private  Double price;
+    private Double price;
 
     @Column(name = "purchase_time", nullable = false)
     private LocalDateTime purchaseTime;
