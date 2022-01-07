@@ -7,6 +7,7 @@ import ozgurbaybas.OnlineBookStore.model.Role;
 import ozgurbaybas.OnlineBookStore.model.User;
 import ozgurbaybas.OnlineBookStore.repository.IUserRepository;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -33,6 +34,7 @@ public class UserService implements IUserService{
     }
 
     @Override
+    @Transactional
     public void makeAdmin(String username){
         userRepository.updateUserRole(username, Role.ADMIN);
     }
