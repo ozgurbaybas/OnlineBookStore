@@ -26,7 +26,7 @@ public class JwtProvider implements IJwtProvider{
     private String JWT_SECRET;
 
     @Value("${app.jwt.expiration-in-ms}")
-    private String JWT_EXPIRATION_IN_MS;
+    private Long JWT_EXPIRATION_IN_MS;
 
     @Override
     public String generateToken(UserPrincipal auth){
@@ -36,10 +36,10 @@ public class JwtProvider implements IJwtProvider{
 
         return Jwts.builder()
                 .setSubject(auth.getUsername())
-                .claim("roles",authorities)
+                .claim("roles", authorities)
                 .claim("userId", auth.getId())
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_IN_MS))
-                .signWith(SignatureAlgorithm.HS512,JWT_SECRET)
+                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
                 .compact();
     }
 
@@ -67,7 +67,7 @@ public class JwtProvider implements IJwtProvider{
         if (username == null){
             return null;
         }
-        return new UsernamePasswordAuthenticationToken(userDetails,null,authorities);
+        return new UsernamePasswordAuthenticationToken(userDetails,null, authorities);
     }
 
     @Override
@@ -77,10 +77,7 @@ public class JwtProvider implements IJwtProvider{
         if (claims == null){
             return false;
         }
-        if (claims.getExpiration().before(new Date())){
-            return false;
-        }
-        return true;
+        return !claims.getExpiration().before(new Date());
     }
 
     private Claims extractClaims(HttpServletRequest request){
