@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ozgurbaybas.OnlineBookStore.model.Role;
 import ozgurbaybas.OnlineBookStore.model.User;
+import ozgurbaybas.OnlineBookStore.util.SecurityUtils;
 
 import java.util.Collection;
 import java.util.Set;
@@ -23,6 +25,16 @@ public class UserPrincipal implements UserDetails {
     transient private String password;
     transient private User user;
     private Set<GrantedAuthority> authorites;
+
+    public static UserPrincipal createSuperUser(){
+        Set<GrantedAuthority> authorities = Set.of(SecurityUtils.convertToAuthority(Role.SYSTEM_MANAGER.name()));
+
+        return UserPrincipal.builder()
+                .id(-1L)
+                .username("system-administrator")
+                .authorites(authorities)
+                .build();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
