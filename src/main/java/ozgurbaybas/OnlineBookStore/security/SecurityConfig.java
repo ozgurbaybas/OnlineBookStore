@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import ozgurbaybas.OnlineBookStore.model.Role;
 import ozgurbaybas.OnlineBookStore.security.jwt.JwtAuthorizationFilter;
 
 @Configuration
@@ -48,11 +49,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/api/authentication/**")
                 .permitAll()
-                .anyRequest()
-                .authenticated();
+                .antMatchers("/api/internal/**").hasRole(Role.SYSTEM_MANAGER.name())
+                .anyRequest().authenticated();
 
         //jwt filter
-        http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        //internal > jwt > authentication
+        http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(internalApiAuthenticationFilter(), JwtAuthorizationFilter.class);
     }
 
     @Bean
