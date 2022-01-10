@@ -8,13 +8,14 @@ import ozgurbaybas.OnlineBookStore.repository.projection.IPurchaseItem;
 
 import java.util.List;
 
-public interface IPurchaseHistoryRepository extends JpaRepository<PurchaseHistory, Long> {
+public interface IPurchaseHistoryRepository extends JpaRepository<PurchaseHistory, Long>
+{
 
 
     @Query("select " +
-            "b.title as title, ph.price as price, ph.purchaseTime as purchaseTime " +
+            "b.title as title, ph.price as price, ph.purchaseTime as purchaseTime  " +
             "from PurchaseHistory ph left join Book b on b.id = ph.bookId " +
             "where ph.userId = :userId")
-    List<IPurchaseItem> findAllPurchasesOfUser(@Param("user_id") Long userId);
+    List<IPurchaseItem> findAllPurchasesOfUser(@Param("userId") Long userId);
 
 }

@@ -30,7 +30,7 @@ public class UserService implements IUserService{
 
     @Override
     public Optional<User> findByUsername(String username){
-        return userRepository.findUsername(username);
+        return userRepository.findByUsername(username);
     }
 
     @Override
