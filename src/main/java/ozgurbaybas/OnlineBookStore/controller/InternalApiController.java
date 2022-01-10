@@ -16,7 +16,7 @@ public class InternalApiController
     @Autowired
     private IUserService userService;
 
-    @PutMapping("make-admim/{username}")  //api/internal/make-admim/{username}
+    @PutMapping("make-admin/{username}")  //api/internal/make-admin/{username}
     public ResponseEntity<?> makeAdmin(@PathVariable String username)
     {
         userService.makeAdmin(username);
