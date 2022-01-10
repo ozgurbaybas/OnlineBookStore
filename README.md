@@ -1,4 +1,4 @@
-# OnlineBookStore
+# Online Book Store
 
 We will implement CRUD operations in our project. We will implement these CRUD operations for users and books. We will use user CRUD operations for login, registration and authorization. We will also use book CRUD operations for creating, editing and deleting books.
 
