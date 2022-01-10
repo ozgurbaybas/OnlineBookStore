@@ -2,7 +2,6 @@ package ozgurbaybas.OnlineBookStore.model;
 
 
 import lombok.Data;
-import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
